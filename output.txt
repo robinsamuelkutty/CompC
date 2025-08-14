@@ -1,0 +1,6 @@
+Lexeme: 	 L.no:	 Token:
+a 		 1	 identifier
+b 		 2	 identifier, 2
+c 		 3	 identifier, 0
+ch 		 4	 identifier
+c 		 5	 identifier
