@@ -104,7 +104,7 @@ void check() {
                 changed = 1;
                 break;
             }
-        }id+id*id
+        }
         if (changed) continue;
 
         // Reduce E*E -> E
