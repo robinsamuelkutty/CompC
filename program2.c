@@ -1,53 +1,38 @@
+%{
 #include <stdio.h>
 #include <string.h>
-#include <ctype.h>
-#include <stdlib.h>
+%}
 
-int main(void) {
-    FILE *fp;
-    char ch;
-    int i,j=0,k=0;
-    int opIndex = 0;
-    char bufferop[100];
-	char buffer[100];
-    char operator[] = "*%+-";
-    char keyword[100][100]={"int","float","if","else","return","char"};
-    fp = fopen("text.txt", "r");
-    
-    while ((ch = fgetc(fp)) != EOF) {
-        for (i = 0; i < strlen(operator); i++) {
-            if (ch == operator[i]) {
-                bufferop[opIndex++] = ch;
-                break; 
-            }
-			
-        }
-		
-    }
-	buffer[j]='\0';		
-    bufferop[opIndex] = '\0'; 
-    printf("Operators in the file: ");
-    for (i = 0; i < opIndex; i++) {
-        printf("%c ", bufferop[i]);
-    }
-    printf("\n");
-	printf("Keywords in the file: ");
-	ch=getc(fp);
-	while(isalnum(ch) || ch=="_"){
-		if(strcmp(keyword,buffer))
-		buffer[k++]=ch;
-		ch=getc(fp);
-	}
-	buffer[k]='/0'
-	
-	for( i=0;i<j;i++){
-		if(strcmp(keyword[i],buffer)){
-			printf("%s ",buffer);
-			
-			
-		}
-	}
-    fclose(fp);
+
+keyword     (int|float|char|double|if|else|for|while|do|return|void|main)
+identifier  [a-zA-Z_][a-zA-Z0-9_]*
+number      [0-9]+
+operator    [+\-*/%]
+relop       (<=|>=|==|!=|<|>)
+symbol      [;{}(),]
+
+%%
+
+
+{keyword}      { printf("Keyword: %s\n", yytext); }
+{identifier}   { printf("Identifier: %s\n", yytext); }
+{number}       { printf("Number: %s\n", yytext); }
+{operator}     { printf("Arithmetic Operator: %s\n", yytext); }
+{relop}        { printf("Relational Operator: %s\n", yytext); }
+{symbol}       { printf("Special Symbol: %s\n", yytext); }
+[ \t\n]+       { /* Ignore whitespace */ }
+.              { printf("Unknown: %s\n", yytext); }
+
+%%
+
+int main()
+{
+    printf("Lexical Analysis Output:\n\n");
+    yylex();  
     return 0;
 }
 
+int yywrap()
+{
+    return 1;
+}
