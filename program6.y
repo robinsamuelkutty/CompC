@@ -9,8 +9,8 @@
 
 %%
 
-start : id '=' s       { /* Assignment-like expression */ }
-      | s              { /* Standalone expression */ }
+start : id '=' s       
+      | s              
       ;
 
 s : id x
